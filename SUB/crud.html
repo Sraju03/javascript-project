@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .form {
+        background-color: #2f8abf;
+        border: solid;
+        border-radius: 10px;
+        padding: 10px 25px;
+        width: max-content;
+        width: 250px;
+      }
+
+      lable {
+        padding: 10px 0;
+        margin: 10px 0;
+      }
+
+      input {
+        padding: 3px;
+        margin: 2px 0;
+        width: 100%;
+        height: 20px;
+        border-radius: 5px;
+      }
+
+      .lang {
+        /* width:10%; */
+        height: 20px;
+        width: 25px;
+      }
+
+      textarea {
+        padding: 3px;
+        margin: 2px 0;
+        height: 60px;
+        width: 100%;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #d14836;
+        padding: 5px 15px;
+        align-items: center;
+        text-align: center;
+        margin: 5px;
+        border-radius: 5px;
+      }
+
+      table {
+        border: solid;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        background-color: #d9effc;
+      }
+      thead {
+        background-color: #2f8abf;
+        padding: 10px 5px;
+      }
+      th {
+        padding: 0 10px;
+      }
+
+      td {
+        border-top: solid 2px black;
+        border-right: solid 2px black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header"><h1>CRUD</h1></div>
+    <div class="container">
+      <div class="form" id="form">
+        <h3>From</h3>
+
+        <lable>First Name</lable><br />
+        <input type="text" id="fname" name="fname" />
+        <br />
+        <lable>Last Name</lable><br />
+        <input type="text" id="lname" name="lastName" />
+        <br />
+        <lable>Email</lable><br />
+        <input type="email" id="email" name="email" />
+        <br />
+        <lable>Language</lable><br />
+        <input
+          class="lang"
+          type="checkbox"
+          id="tamil"
+          name="tamil"
+        />Tamil<br />
+        <input
+          class="lang"
+          type="checkbox"
+          id="english"
+          name="english"
+        />English
+        <br />
+        <input class="lang" type="checkbox" id="hindi" name="hindi" />Hindi
+        <br />
+        <lable>Description</lable><br />
+        <textarea name="message" id="message"></textarea>
+        <br />
+        <button
+          id="submit"
+          style="background-color: rgb(31, 255, 65)"
+          onclick="getValue()"
+        >
+          Submit
+        </button>
+        <button
+          id="update"
+          style="display: none; background-color: rgb(168, 214, 255)"
+          onclick="updateValue()"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+    <br /><br />
+    <div class="tabelcon">
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>last Name</th>
+            <th>Email</th>
+            <th>Language</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="content">
+          <tr>
+            <td colspan="6">
+              <p style="margin-top: 20px">no data found</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      //  step:1 Get the value from the form ---
+      //
+
+      let rowCount = 0;
+
+      function getValue() {
+        rowCount = rowCount + 1;
+        let langg = "";
+        const fname = document.getElementById("fname").value;
+        const lname = document.getElementById("lname").value;
+        const email = document.getElementById("email").value;
+
+        const message = document.getElementById("message").value;
+
+        const tamil = document.getElementById("tamil");
+        const english = document.getElementById("english");
+        const hindi = document.getElementById("hindi");
+
+        const tc = tamil.checked;
+        const te = english.checked;
+        const th = hindi.checked;
+
+        if (tc == 1) {
+          langg += "Tamil,";
+        }
+        if (te == 1) {
+          langg += "English,";
+        }
+        if (th == 1) {
+          langg += "Hindi,";
+        }
+
+        let lang = langg.substring(0, langg.length - 1);
+
+        const roww = `<tr id="${rowCount}">
+                  <td>${fname}</td>
+                  <td>${lname}</td>
+                  <td>${email}</td>
+                  <td>${lang}</td>
+                  <td>${message}</td>
+                  <td id="btn">
+                    <button rownumber=${rowCount} style="background-color: #2f8abf" onClick="editValue()">Edit</button><button onclick="deleteValue()">Delete</button>
+                  </td>
+                </tr>`;
+
+        document.getElementsByTagName("p");
+
+        const table = document.getElementById("content");
+
+        const row = document.createElement("tr");
+        row.setAttribute("id", rowCount);
+
+        const col1 = document.createElement("td");
+        const col2 = document.createElement("td");
+        const col3 = document.createElement("td");
+        const col4 = document.createElement("td");
+        const col5 = document.createElement("td");
+        const col6 = document.createElement("td");
+
+        col1.innerHTML = fname;
+        col2.innerHTML = lname;
+        col3.innerHTML = email;
+        col4.innerHTML = lang;
+        col5.innerHTML = message;
+        col6.innerHTML = ` <button rownumber=${rowCount} style="background-color: #2f8abf" onClick="editValue()">Edit</button><button onclick="deleteValue()">Delete</button>`;
+
+        row.appendChild(col1);
+        row.appendChild(col2);
+        row.appendChild(col3);
+        row.appendChild(col4);
+        row.appendChild(col5);
+        row.appendChild(col6);
+
+        const p = document.querySelector("#content p");
+
+        if (p != null && p.innerText == "no data found") {
+          table.innerHTML = roww;
+        } else {
+          table.appendChild(row);
+        }
+
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("message").value = "";
+
+        document.getElementById("tamil").checked = false;
+        document.getElementById("english").checked = false;
+        document.getElementById("hindi").checked = false;
+      }
+
+      function deleteValue() {
+        const d = confirm("Do you want to delete");
+        if (d) {
+          event.target.parentElement.parentElement.remove();
+        }
+      }
+      let rowId; 
+      function editValue() {
+        document.getElementById("update").style.display = "block";
+        document.getElementById("submit").style.display = "none";
+        let eRow = event.target.closest("tr");
+        rowId = eRow.getAttribute("id");
+
+        eRow = eRow.children;
+        document.getElementById("fname").value = eRow[0].textContent;
+        document.getElementById("lname").value = eRow[1].textContent;
+        document.getElementById("email").value = eRow[2].textContent;
+        let eLang = eRow[3].textContent;
+
+        let check = eLang.split(",");
+
+        document.getElementById("tamil").checked = check.includes("Tamil");
+
+        document.getElementById("english").checked = check.includes("English");
+
+        document.getElementById("hindi").checked = check.includes("Hindi");
+
+        document.getElementById("message").value = eRow[4].textContent;
+      }
+
+      function updateValue() {
+        let langg = "";
+
+        const fname = document.getElementById("fname").value;
+        const lname = document.getElementById("lname").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+        const tamil = document.getElementById("tamil");
+        const english = document.getElementById("english");
+        const hindi = document.getElementById("hindi");
+
+        const tc = tamil.checked;
+        const te = english.checked;
+        const th = hindi.checked;
+
+        if (tc == 1) {
+          langg += "Tamil,";
+        }
+        if (te == 1) {
+          langg += "English,";
+        }
+        if (th == 1) {
+          langg += "Hindi,";
+        }
+
+        let lang = langg.substring(0, langg.length - 1);
+
+        const updateRow = document.getElementById(rowId);
+
+        updateRow.innerHTML = `<tr id="${rowCount}">
+                  <td>${fname}</td>
+                  <td>${lname}</td>
+                  <td>${email}</td>
+                  <td>${lang}</td>
+                  <td>${message}</td>
+                  <td id="btn">
+                    <button rownumber=${rowCount} style="background-color: #2f8abf" onClick="editValue()">Edit</button><button onclick="deleteValue()">Delete</button>
+                  </td>
+                </tr>`;
+
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("message").value = "";
+
+        document.getElementById("tamil").checked = false;
+        document.getElementById("english").checked = false;
+        document.getElementById("hindi").checked = false;
+
+        document.getElementById("update").style.display = "none";
+        document.getElementById("submit").style.display = "block";
+      }
+    </script>
+  </body>
+</html>

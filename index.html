@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div><h1>Javascript project Sites</h1></div>
+    <div class="oper" id="overlay">
+      <div class="item">
+        <h3>Arithmetic</h3>
+        <p>
+          + Addition <br />
+          - Subtraction <br />
+          * Multiplication <br />
+          ** Exponentiation (ES2016)<br />
+          / Division <br />
+          % Modulus (Remainder)<br />
+          ++ Increment <br />
+          -- Decrement
+        </p>
+      </div>
+
+      <form action="" id="myForm">
+        <h4>Example</h4>
+        <input type="text" id="fv" placeholder="First Value" /><br /><br />
+        <input type="text" id="sv" placeholder="Second Value" /><br /><br />
+        <select name="" id="option">
+          <option value="add">Add</option>
+          <option value="sub">Sub</option>
+          <option value="mul">Multiply</option>
+          <option value="div">Divide</option>
+          <option value="mod">Modulus</option>
+          <option value="inc">Increment</option>
+          <option value="dec">Decrement</option>
+        </select>
+        <br /><br />
+        <button type="button" id="calculate">Calculate</button>
+        <br /><br />
+        <input type="text" id="ans" placeholder="Answer" />
+        <br /><br />
+        <button class="btn" id="closeOverlay">Close</button>
+      </form>
+    </div>
+    <div class="main">
+      <div class="container">
+        <div class="card">
+          <h3 class="title">Operator <br />& Type</h3>
+          <button class="btn class-view" id="showOverlay">View</button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="card">
+          <h3 class="title">Calculator</h3>
+          <button class="btn class-view" id="showOverlay">View</button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="card">
+          <h3 class="title">CRUD</h3>
+          <a href="/SUB/crud.html"
+            ><button class="btn class-view" id="showOverlay">View</button></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

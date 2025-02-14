@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>admin</title>
+  </head>
+  <body>
+    <div class="p-5"><h3>Customer Details</h3></div>
+    <div
+      class="container px-4 text-center border border-1 border-dark rounded-4 mb-5 sticky-top"
+    >
+      <div class="row gx-5">
+        <div class="col">
+          <div class="p-3"><h6>Add customer details</h6></div>
+        </div>
+        <div class="col">
+          <div class="p-3">
+            <button
+              type="button"
+              class="btn btn-outline-primary visible"
+              onclick="refresh()"
+            >
+              Refresh
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-clockwise"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+                />
+                <path
+                  d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              onclick="toggleModel()"
+            >
+              Add
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-plus-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m-3">
+      <table class="table table-hover w-100">
+        <thead class="sticky-top">
+          <tr>
+            <th scope="col">S no</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Membership</th>
+            <th scope="col">Email</th>
+            <th scope="col">Street/House</th>
+            <th scope="col">City</th>
+            <th scope="col">Notification</th>
+            <th scope="col">Terms & Condition</th>
+            <th scope="col ">Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <div
+      class="w-25 border border-2 border-dark invisible position-relative top-40 start-50 overlay-form"
+      id="model"
+    >
+      <div class="row justify-content-between">
+        <div class="col"><h4 class="p-2">Customer Form</h4></div>
+      </div>
+
+      <div class="w-100" style="background-color: #f7c59d">
+        <form class="w-100 p-3" id="form">
+          <!-- fname -->
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control form-control-sm border border-1 border-dark"
+                placeholder="First name"
+                aria-label="First name"
+                id="fname"
+              />
+            </div>
+            <!-- lname -->
+            <div class="col">
+              <input
+                type="text"
+                class="form-control form-control-sm border border-1 border-dark"
+                placeholder="Last name"
+                aria-label="Last name"
+                id="lname"
+              />
+            </div>
+          </div>
+          <!-- contact  -->
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                type="number"
+                class="form-control form-control-sm border border-1 border-dark"
+                placeholder="Contact"
+                aria-label="Contact"
+                id="contact"
+              />
+            </div>
+            <!-- customer code -->
+            <div class="col">
+              <input
+                type="text"
+                class="form-control form-control-sm border border-1 border-dark"
+                placeholder="Membership Code(If Available)"
+                aria-label="Membership Code(If Available)"
+                id="member"
+              />
+            </div>
+          </div>
+          <!-- email  -->
+          <div class="mb-3">
+            <input
+              class="form-control form-control-sm border border-1 border-dark"
+              type="email"
+              placeholder="Email"
+              id="email"
+            />
+          </div>
+
+          <!-- street/House No.s -->
+          <div class="mb-3">
+            <input
+              class="form-control form-control-sm border border-1 border-dark"
+              type="text"
+              placeholder="Street/House No.s"
+              id="street"
+            />
+          </div>
+          <!-- city  -->
+          <div class="mb-3">
+            <input
+              class="form-control form-control-sm border border-1 border-dark"
+              type="text"
+              placeholder="City"
+              id="city"
+            />
+          </div>
+          <!-- terms and condition -->
+          <div class="mb-3 row">
+            <!-- notification -->
+            <div class="col">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input border-1 border-dark"
+                  type="checkbox"
+                  role="switch"
+                  id="Notification"
+                />
+                <label class="form-check-label">Notification</label>
+              </div>
+            </div>
+            <!-- terms and condition -->
+            <div class="col">
+              <div class="form-check">
+                <input
+                  class="form-check-input border-1 border-dark"
+                  type="checkbox"
+                  value=""
+                  id="terms"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Agree to terms and condition
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="container p-3" style="background-color: #f3ceb0">
+          <div class="row">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-outline-primary pull-right"
+                onclick="toggleBack()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-arrow-bar-left"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"
+                  />
+                </svg>
+                Back
+              </button>
+            </div>
+
+            <div class="col">
+              <button
+                onclick="updateValue()"
+                id="update"
+                type="button"
+                class="btn btn-outline-primary invisible"
+              >
+                Update
+              </button>
+              <button
+                id="add"
+                type="button"
+                class="btn btn-outline-success"
+                onclick="getValue()"
+              >
+                Add
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-plus-circle-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="shop.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
